@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photographer Portfolio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Portfolio</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Carousel -->
+    <header class="header">
+        <div id="headerCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#headerCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#headerCarousel" data-slide-to="1"></li>
+                <li data-target="#headerCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="overlay"></div>
+                    <img src="img/slider1.jpg" class="d-block w-100" alt="Slide 1">
+                    <div class="carousel-caption d-flex h-100 align-items-center justify-content-center">
+                        <div class="text-center text-white">
+                            <h1 class="display-4">Welcome to My Photography Portfolio</h1>
+                            <p class="lead">Capturing moments from today, creating memories for a lifetime.</p>
+                            <a href="#portfolio" class="btn btn-primary mt-3">View My Work</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="overlay"></div>
+                    <img src="img/slider2.jpg" class="d-block w-100" alt="Slide 2">
+                    <div class="carousel-caption d-flex h-100 align-items-center justify-content-center">
+                        <div class="text-center text-white">
+                            <h1 class="display-4">Professional Photography</h1>
+                            <p class="lead">Specializing in portrait, landscape, and event photography.</p>
+                            <a href="#portfolio" class="btn btn-primary mt-3">View My Work</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="overlay"></div>
+                    <img src="img/slider3.jpg" class="d-block w-100" alt="Slide 3">
+                    <div class="carousel-caption d-flex h-100 align-items-center justify-content-center">
+                        <div class="text-center text-white">
+                            <h1 class="display-4">Create Lasting Memories</h1>
+                            <p class="lead">Let us capture your special moments with creativity and passion.</p>
+                            <a href="#contact" class="btn btn-primary mt-3">Contact Me</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#headerCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#headerCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img src="assets/images/about.jpeg" class="img-fluid rounded" alt="About Me">
+                </div>
+                <div class="col-lg-6">
+                    <h2>About Me</h2>
+                    <p>Привет! Я фотограф из Москвы. Снимаю свадьбы, портреты и репортажи. Для меня важно не просто сделать кадр, а передать историю и эмоцию.</p>
+                    <p>Этот сайт — моё портфолио. Свяжитесь со мной, если захотите работать вместе.</p>
+                    <a href="#contact" class="btn btn-dark mt-3">Contact Me</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section with Lightbox -->
+    <section id="portfolio" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center">My Work</h2>
+            <p class="text-center mb-4">A selection of some recent projects and photographs.</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <a href="assets/images/large/photo1.jpg" data-lightbox="gallery">
+                            <img src="assets/images/thumb/photo1.jpg" class="card-img-top" alt="Project 1">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">Свадебная съёмка</h5>
+                            <p class="card-text">Репортажная и постановочная съёмка на выездной церемонии.</p>
+                            <p class="card-date"><small class="text-muted">Дата: Июнь 2025</small></p>
+                            <a href="#" class="btn btn-primary">View More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <a href="assets/images/large/photo2.jpg" data-lightbox="gallery">
+                            <img src="assets/images/thumb/photo2.jpg" class="card-img-top" alt="Project 2">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">Портретная сессия</h5>
+                            <p class="card-text">Студийная съёмка с естественным светом и живыми эмоциями.</p>
+                            <p class="card-date"><small class="text-muted">Дата: Март 2025</small></p>
+                            <a href="#" class="btn btn-primary">View More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <a href="assets/images/large/photo3.jpg" data-lightbox="gallery">
+                            <img src="assets/images/thumb/photo3.jpg" class="card-img-top" alt="Project 3">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">Репортаж</h5>
+                            <p class="card-text">Уличная съёмка атмосферы города, людей и архитектуры.</p>
+                            <p class="card-date"><small class="text-muted">Дата: Февраль 2025</small></p>
+                            <a href="#" class="btn btn-primary">View More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Get in Touch</h2>
+            <p class="text-center mb-5">Я открыт для новых проектов и сотрудничества. Свяжитесь со мной любым удобным способом.</p>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputName">Name</label>
+                                <input type="text" class="form-control" id="inputName" placeholder="Your Name">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail">Email</label>
+                                <input type="email" class="form-control" id="inputEmail" placeholder="Your Email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputMessage">Message</label>
+                            <textarea class="form-control" id="inputMessage" rows="4" placeholder="Your Message"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <p class="m-0">© 2025 Photographer Portfolio. All Rights Reserved.</p>
+            <div class="social-icons">
+                <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-white mx-2"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
+    <!-- Lightbox2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
+</body>
+</html>
