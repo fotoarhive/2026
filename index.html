@@ -10,40 +10,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Lightbox2 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
+    <!-- Дополнительные стили для кнопок -->
     <style>
-        /* Дополнительные стили для кнопок */
         .lb-custom-buttons {
             position: absolute !important;
             top: 20px !important;
             right: 20px !important;
             z-index: 10000 !important;
             display: flex !important;
-            gap: 12px !important;
+            gap: 15px !important;
             background: rgba(0,0,0,0.6) !important;
-            padding: 8px 12px !important;
-            border-radius: 30px !important;
-            backdrop-filter: blur(4px) !important;
+            padding: 10px 15px !important;
+            border-radius: 40px !important;
+            backdrop-filter: blur(5px) !important;
         }
         .lb-custom-btn {
             background: transparent !important;
             border: none !important;
             color: white !important;
-            font-size: 18px !important;
+            font-size: 20px !important;
             cursor: pointer !important;
-            padding: 4px 8px !important;
-            transition: all 0.2s ease !important;
+            padding: 5px 10px !important;
+            transition: 0.2s !important;
             font-family: 'Font Awesome 5 Free' !important;
             font-weight: 900 !important;
         }
         .lb-custom-btn:hover {
-            transform: scale(1.1);
-            color: #ffcc00;
-        }
-        .lb-nav a.lb-prev, .lb-nav a.lb-next {
-            opacity: 0.8 !important;
+            transform: scale(1.15);
+            color: #ffcc00 !important;
         }
         .lb-data .lb-close {
             display: none !important;
+        }
+        .lb-nav a.lb-prev, .lb-nav a.lb-next {
+            opacity: 0.8 !important;
         }
     </style>
     <link rel="stylesheet" href="css/styles.css">
@@ -153,7 +153,34 @@
                         </div>
                     </div>
                 </div>
-                <!-- Здесь вы можете добавить Project 2 и Project 3 по тому же шаблону -->
+                <!-- Project 2 -->
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <a href="assets/images/large/portfolio2.jpeg" data-lightbox="gallery" data-title="Портретная сессия">
+                            <img src="assets/images/thumb/portfolio2.jpeg" class="card-img-top" alt="Портретная сессия">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">Портретная сессия</h5>
+                            <p class="card-text">Студийная съёмка с естественным светом и живыми эмоциями.</p>
+                            <p class="card-date"><small class="text-muted">Дата: Март 2025</small></p>
+                            <a href="#" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <a href="assets/images/large/portfolio3.jpeg" data-lightbox="gallery" data-title="Репортаж">
+                            <img src="assets/images/thumb/portfolio3.jpeg" class="card-img-top" alt="Репортаж">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">Репортаж</h5>
+                            <p class="card-text">Уличная съёмка атмосферы города, людей и архитектуры.</p>
+                            <p class="card-date"><small class="text-muted">Дата: Февраль 2025</small></p>
+                            <a href="#" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -208,66 +235,77 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
     
     <script>
-        // Добавляем кастомные кнопки управления в Lightbox
-        function addCustomButtonsToLightbox() {
+        // Ждём полной загрузки лайтбокса и добавляем кнопки
+        function addCustomButtons() {
+            if (document.querySelector('.lb-custom-buttons')) return;
+            
+            const outer = document.querySelector('.lb-outerContainer');
+            if (!outer) return;
+            
             const container = document.querySelector('.lb-container');
-            if (!container || document.querySelector('.lb-custom-buttons')) return;
+            if (!container) return;
             
             const buttonsDiv = document.createElement('div');
             buttonsDiv.className = 'lb-custom-buttons';
             
-            // Кнопка полноэкранного режима
-            const fullscreenBtn = document.createElement('button');
-            fullscreenBtn.className = 'lb-custom-btn';
-            fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
-            fullscreenBtn.title = 'На весь экран';
-            fullscreenBtn.addEventListener('click', () => {
+            // Кнопка Fullscreen
+            const fsBtn = document.createElement('button');
+            fsBtn.className = 'lb-custom-btn';
+            fsBtn.innerHTML = '<i class="fas fa-expand"></i>';
+            fsBtn.title = 'На весь экран';
+            fsBtn.onclick = () => {
                 const img = document.querySelector('.lb-image');
                 if (img) {
                     if (img.requestFullscreen) img.requestFullscreen();
                     else if (img.webkitRequestFullscreen) img.webkitRequestFullscreen();
-                    else if (img.msRequestFullscreen) img.msRequestFullscreen();
                 }
-            });
+            };
             
-            // Кнопка скачивания
-            const downloadBtn = document.createElement('button');
-            downloadBtn.className = 'lb-custom-btn';
-            downloadBtn.innerHTML = '<i class="fas fa-download"></i>';
-            downloadBtn.title = 'Скачать фото';
-            downloadBtn.addEventListener('click', () => {
+            // Кнопка Скачать
+            const dlBtn = document.createElement('button');
+            dlBtn.className = 'lb-custom-btn';
+            dlBtn.innerHTML = '<i class="fas fa-download"></i>';
+            dlBtn.title = 'Скачать фото';
+            dlBtn.onclick = () => {
                 const img = document.querySelector('.lb-image');
                 if (img) {
-                    const link = document.createElement('a');
-                    link.href = img.src;
-                    link.download = img.src.split('/').pop();
-                    link.click();
+                    const a = document.createElement('a');
+                    a.href = img.src;
+                    a.download = img.src.split('/').pop();
+                    a.click();
                 }
-            });
+            };
             
-            // Кнопка закрытия лайтбокса и возврата на главную
+            // Кнопка Закрыть
             const closeBtn = document.createElement('button');
             closeBtn.className = 'lb-custom-btn';
             closeBtn.innerHTML = '<i class="fas fa-times"></i>';
-            closeBtn.title = 'Закрыть и вернуться';
-            closeBtn.addEventListener('click', () => {
+            closeBtn.title = 'Закрыть';
+            closeBtn.onclick = () => {
                 const closeNative = document.querySelector('.lb-close');
                 if (closeNative) closeNative.click();
-            });
+            };
             
-            buttonsDiv.appendChild(fullscreenBtn);
-            buttonsDiv.appendChild(downloadBtn);
+            buttonsDiv.appendChild(fsBtn);
+            buttonsDiv.appendChild(dlBtn);
             buttonsDiv.appendChild(closeBtn);
             container.appendChild(buttonsDiv);
         }
         
-        // Следим за появлением лайтбокса
+        // Наблюдатель за появлением лайтбокса
         const observer = new MutationObserver(() => {
             if (document.querySelector('.lb-outerContainer')) {
-                setTimeout(addCustomButtonsToLightbox, 50);
+                setTimeout(addCustomButtons, 100);
             }
         });
         observer.observe(document.body, { childList: true, subtree: true });
+        
+        // Также пробуем добавить при клике на любую ссылку лайтбокса
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('[data-lightbox]')) {
+                setTimeout(addCustomButtons, 200);
+            }
+        });
     </script>
 </body>
 </html>
