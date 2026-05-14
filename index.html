@@ -6,12 +6,12 @@
     <title>Фотограф | Портфолио</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Font Awesome Icons (для красивых кнопок) -->
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        /* Стили для модального окна */
-        .custom-modal {
+        /* Стили модального окна — появляется поверх всего */
+        .photo-modal {
             display: none;
             position: fixed;
             top: 0;
@@ -22,25 +22,22 @@
             z-index: 9999;
             cursor: pointer;
         }
-        .custom-modal-content {
+        .photo-modal-content {
             position: relative;
             margin: auto;
-            padding: 20px;
             width: 90%;
-            max-width: 1200px;
             height: 90%;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .custom-modal-content img {
+        .photo-modal-content img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            animation: zoomIn 0.3s;
         }
-        /* Кнопки управления */
-        .modal-controls {
+        /* Кнопки — внутри модального окна, поверх фото */
+        .modal-buttons {
             position: absolute;
             bottom: 20px;
             right: 20px;
@@ -52,20 +49,20 @@
             backdrop-filter: blur(5px);
             z-index: 10000;
         }
-        .modal-controls button {
+        .modal-buttons button {
             background: none;
             border: none;
             color: white;
-            font-size: 24px;
+            font-size: 22px;
             cursor: pointer;
             transition: 0.2s;
             padding: 5px 10px;
         }
-        .modal-controls button:hover {
+        .modal-buttons button:hover {
             color: #ffcc00;
             transform: scale(1.1);
         }
-        .close-modal {
+        .close-modal-btn {
             position: absolute;
             top: 20px;
             right: 30px;
@@ -75,12 +72,12 @@
             cursor: pointer;
             z-index: 10001;
         }
-        .close-modal:hover {
+        .close-modal-btn:hover {
             color: #ffcc00;
         }
-        @keyframes zoomIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        /* Картинка в карточке — рука вместо курсора */
+        .portfolio-img {
+            cursor: pointer;
         }
     </style>
 </head>
@@ -137,15 +134,17 @@
         </div>
     </section>
 
-    <!-- Portfolio Section (только 1 карточка) -->
+    <!-- Portfolio Section — одна карточка -->
     <section id="portfolio" class="py-5 bg-light">
         <div class="container">
             <h2 class="text-center">Мои работы</h2>
             <div class="row justify-content-center">
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm">
-                        <!-- ВАЖНО: теперь это НЕ ссылка, а кнопка с data-атрибутом -->
-                        <img src="assets/images/thumb/portfolio1.jpeg" class="card-img-top portfolio-img" data-large="assets/images/large/portfolio1.jpeg" alt="Свадебная съёмка" style="cursor: pointer;">
+                        <img src="assets/images/thumb/portfolio1.jpeg" 
+                             class="card-img-top portfolio-img" 
+                             data-large="assets/images/large/portfolio1.jpeg" 
+                             alt="Свадебная съёмка">
                         <div class="card-body">
                             <h5 class="card-title">Свадебная съёмка</h5>
                             <p class="card-text">Репортажная и постановочная съёмка на выездной церемонии.</p>
@@ -187,54 +186,55 @@
         </div>
     </footer>
 
-    <!-- СКРИПТ НАШЕГО ГАРАНТИРОВАННО РАБОТАЮЩЕГО МОДАЛЬНОГО ОКНА -->
+    <!-- HTML-структура модального окна (будет добавлена скриптом) -->
     <script>
-        // 1. Создаем структуру модального окна (один раз)
-        const modal = document.createElement('div');
-        modal.className = 'custom-modal';
-        modal.innerHTML = `
-            <span class="close-modal">&times;</span>
-            <div class="custom-modal-content">
-                <img id="modal-img" src="" alt="Фото">
-            </div>
-            <div class="modal-controls">
-                <button id="download-btn" title="Скачать"><i class="fas fa-download"></i></button>
-                <button id="fullscreen-btn" title="На весь экран"><i class="fas fa-expand"></i></button>
+        // Создаём модальное окно динамически
+        const modalHTML = `
+            <div id="photoModal" class="photo-modal">
+                <span class="close-modal-btn">&times;</span>
+                <div class="photo-modal-content">
+                    <img id="modalPhoto" src="" alt="Увеличенное фото">
+                </div>
+                <div class="modal-buttons">
+                    <button id="downloadPhotoBtn" title="Скачать фото"><i class="fas fa-download"></i></button>
+                    <button id="fullscreenPhotoBtn" title="На весь экран"><i class="fas fa-expand"></i></button>
+                </div>
             </div>
         `;
-        document.body.appendChild(modal);
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
 
         // Получаем элементы
-        const modalImg = document.getElementById('modal-img');
-        const closeModal = document.querySelector('.close-modal');
-        const downloadBtn = document.getElementById('download-btn');
-        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const modal = document.getElementById('photoModal');
+        const modalPhoto = document.getElementById('modalPhoto');
+        const closeBtn = document.querySelector('.close-modal-btn');
+        const downloadPhotoBtn = document.getElementById('downloadPhotoBtn');
+        const fullscreenPhotoBtn = document.getElementById('fullscreenPhotoBtn');
         
-        let currentImageSrc = '';
+        let currentPhotoUrl = '';
 
         // Функция открытия модального окна
-        function openModal(imgSrc) {
+        function openModal(photoUrl) {
             modal.style.display = 'block';
-            modalImg.src = imgSrc;
-            currentImageSrc = imgSrc;
-            document.body.style.overflow = 'hidden'; // запрещаем скролл фона
+            modalPhoto.src = photoUrl;
+            currentPhotoUrl = photoUrl;
+            document.body.style.overflow = 'hidden';
         }
 
         // Функция закрытия
-        function closeModalFunc() {
+        function closeModal() {
             modal.style.display = 'none';
-            document.body.style.overflow = 'auto'; // возвращаем скролл
+            document.body.style.overflow = 'auto';
         }
 
-        // Скачивание
-        function downloadImage() {
-            if (currentImageSrc) {
-                const a = document.createElement('a');
-                a.href = currentImageSrc;
-                a.download = currentImageSrc.split('/').pop();
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
+        // Скачивание фото
+        function downloadPhoto() {
+            if (currentPhotoUrl) {
+                const link = document.createElement('a');
+                link.href = currentPhotoUrl;
+                link.download = currentPhotoUrl.split('/').pop();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
             }
         }
 
@@ -242,32 +242,30 @@
         function toggleFullscreen() {
             if (!document.fullscreenElement) {
                 modal.requestFullscreen().catch(err => {
-                    console.error(`Ошибка fullscreen: ${err.message}`);
+                    console.warn(`Ошибка fullscreen: ${err.message}`);
                 });
             } else {
                 document.exitFullscreen();
             }
         }
 
-        // События
-        closeModal.addEventListener('click', closeModalFunc);
-        downloadBtn.addEventListener('click', downloadImage);
-        fullscreenBtn.addEventListener('click', toggleFullscreen);
+        // Назначаем обработчики
+        closeBtn.addEventListener('click', closeModal);
+        downloadPhotoBtn.addEventListener('click', downloadPhoto);
+        fullscreenPhotoBtn.addEventListener('click', toggleFullscreen);
         
-        // Закрытие по клику на фон (на сам модальный блок)
+        // Закрытие по клику на фон
         modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModalFunc();
+            if (e.target === modal) closeModal();
         });
 
-        // Навешиваем обработчик на ВСЕ элементы с классом 'portfolio-img'
-        // Это наши фотографии в карточках
+        // Навешиваем обработчик на все картинки с классом portfolio-img
         document.querySelectorAll('.portfolio-img').forEach(img => {
             img.addEventListener('click', () => {
                 const largeSrc = img.getAttribute('data-large');
                 if (largeSrc) {
                     openModal(largeSrc);
                 } else {
-                    // если data-large нет, пробуем взять src у самой картинки (но это маленькое фото)
                     openModal(img.src);
                 }
             });
